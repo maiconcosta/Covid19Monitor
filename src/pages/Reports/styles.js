@@ -4,7 +4,15 @@ import Constants from 'expo-constants';
 export const Container = styled.SafeAreaView`
         background: #fafafa;
         flex: 1;     
-        padding-top: ${Constants.statusBarHeight +20};
+        padding-top: ${Constants.statusBarHeight}px;
+`;
+
+export const UpdatedData = styled.Text`
+        font-size: 10px;
+        color: #ccc;
+        margin-bottom: 7px;
+        text-align: center;
+        font-weight: bold;
 `;
 
 export const ChartBox = styled.View`
@@ -16,13 +24,9 @@ export const ChartBox = styled.View`
         align-items: center;
         justify-content: center;
         border-radius: 8px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;      
         shadow-opacity: 0.10;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 1;
 `;
 
@@ -41,13 +45,9 @@ export const Confirmed = styled.View`
         justify-content: center;
         margin: 5px;
         border-radius: 8px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;      
         shadow-opacity: 0.22;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 3;        
 `;
 
@@ -60,13 +60,9 @@ export const Recovered = styled.View`
         justify-content: center;
         margin: 5px;
         border-radius: 8px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;    
         shadow-opacity: 0.22;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 3;
 `;
 
@@ -79,13 +75,9 @@ export const Deaths = styled.View`
         justify-content: center;
         margin: 5px;
         border-radius: 8px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;    
         shadow-opacity: 0.22;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 3;
 `;
 
@@ -98,13 +90,9 @@ export const Total = styled.View`
         justify-content: center;
         margin: 5px;
         border-radius: 8px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;      
         shadow-opacity: 0.22;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 3;
 `;
 
@@ -133,13 +121,9 @@ export const State = styled.TouchableOpacity`
         padding: 10px 20px;
         margin: 5px;
         border-radius: 5px;
-        shadow-color: #000;
-        shadow-offset: {
-                width: 0;
-                height: 1;
-        };
+        shadow-color: #000;       
         shadow-opacity: 0.10;
-        shadow-radius: 2.22;
+        shadow-radius: 2.22px;
         elevation: 1;
         flex-direction: row;
         align-items: center;

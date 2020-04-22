@@ -1,10 +1,11 @@
 import React, { useCallback, useEffect, useState } from 'react';
 import { RefreshControl, ScrollView } from "react-native";
 import { MaterialIcons } from '@expo/vector-icons';
-
 import { PieChart } from 'react-native-svg-charts'
+import { format, parseISO } from 'date-fns';
 
 import api from '../../services/api';
+
 
 import {
     ChartBox,
@@ -23,7 +24,8 @@ import {
     StateCases,
     StateName,
     Title,
-    Total
+    Total,
+    UpdatedData
 } from './styles';
 
 function wait(timeout) {
@@ -32,13 +34,18 @@ function wait(timeout) {
     });
 }
 
-export default function Reports() {
-    const [confirmed, setConfirmed] = useState(0);
-    const [recovered, setRecovered] = useState(0);
-    const [deaths, setDeaths] = useState(0);
+export default function Reports({ navigation }) {
+    const [confirmedCases, setConfirmedCases] = useState(0);
+    const [recoveredCases, setRecoveredCases] = useState(0);
+    const [deathsCases, setDeathsCases] = useState(0);
     const [total, setTotal] = useState(0);
+    const [updatedAt, setUpdatedAt] = useState('');
     const [statesCases, setStatesCases] = useState([]);
     const [refreshing, setRefreshing] = useState(false);
+
+    function navigateToDetail(state) {
+        navigation.navigate('Detail', { state });
+    }
 
     useEffect(() => {
         loadApiData();
@@ -58,12 +65,17 @@ export default function Reports() {
     async function loadCases() {
         await api.get('brazil')
             .then((response) => {
-                setConfirmed(response.data.data.confirmed);
-                setRecovered(response.data.data.recovered);
-                setDeaths(response.data.data.deaths);
-            });
+                const { confirmed, recovered, deaths, updated_at } = response.data.data;
+                const totalCases = confirmed + recovered + deaths;
 
-        setTotal(confirmed + recovered + deaths);
+                setConfirmedCases(confirmed);
+                setRecoveredCases(recovered);
+                setDeathsCases(deaths);
+                setUpdatedAt(format(parseISO(updated_at), 'dd/MM/yyyy - hh:mm'));              
+
+                setTotal(totalCases);
+ 
+            });
     }
 
     async function loadStatesCases() {
@@ -75,21 +87,21 @@ export default function Reports() {
 
     const pieData = [
         {
-            value: deaths,
+            value: deathsCases,
             svg: {
                 fill: '#c70202'
             },
             key: 1
         },
         {
-            value: recovered,
+            value: recoveredCases,
             svg: {
                 fill: '#4addf0'
             },
             key: 2
         },
         {
-            value: confirmed,
+            value: confirmedCases,
             svg: {
                 fill: '#f28d0a'
             },
@@ -105,7 +117,9 @@ export default function Reports() {
                         refreshing={refreshing}
                         onRefresh={onRefresh} />
                 }>
-                <Title>Covid-19 no Brasil</Title>
+                <UpdatedData>
+                    Última atualização: {updatedAt}
+                </UpdatedData>
                 <ChartBox>
                     <PieChart
                         style={{
@@ -120,18 +134,18 @@ export default function Reports() {
                 <Indicatives>
 
                     <Confirmed>
-                        <IndicativeNumber>{confirmed}</IndicativeNumber>
+                        <IndicativeNumber>{confirmedCases}</IndicativeNumber>
                         <IndicativeTitle>Confirmados</IndicativeTitle>
                     </Confirmed>
 
                     <Recovered>
-                        <IndicativeNumber>{recovered}</IndicativeNumber>
+                        <IndicativeNumber>{recoveredCases}</IndicativeNumber>
                         <IndicativeTitle>Curados</IndicativeTitle>
                     </Recovered>
                 </Indicatives>
                 <Indicatives>
                     <Deaths>
-                        <IndicativeNumber>{deaths}</IndicativeNumber>
+                        <IndicativeNumber>{deathsCases}</IndicativeNumber>
                         <IndicativeTitle>Óbitos</IndicativeTitle>
                     </Deaths>
                     <Total>
@@ -143,7 +157,9 @@ export default function Reports() {
                 <States>
                     <Title>Casos por estado brasileiro</Title>
                     {statesCases.map(state => (
-                        <State key={state.uid}>
+                        <State
+                            key={state.uid}
+                            onPress={() => navigateToDetail(state)}>
                             <FlagAndCase>
                                 <Flag source={{
                                     uri: `https://devarthurribeiro.github.io/covid19-brazil-api/static/flags/${state.uf}.png`,
