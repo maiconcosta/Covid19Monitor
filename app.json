@@ -23,6 +23,8 @@
     ],
     "ios": {
       "supportsTablet": true
-    }
+    },
+    "description": "App para visualização de dados atualizados sobre a situação atual do Covid-19 no Brasil",
+    "githubUrl": "https://github.com/maiconcosta/Covid19Monitor"
   }
 }

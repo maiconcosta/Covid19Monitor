@@ -71,7 +71,7 @@ export default function Reports({ navigation }) {
                 setConfirmedCases(confirmed);
                 setRecoveredCases(recovered);
                 setDeathsCases(deaths);
-                setUpdatedAt(format(parseISO(updated_at), 'dd/MM/yyyy - hh:mm'));              
+                setUpdatedAt(format(parseISO(updated_at), 'dd/MM/yyyy - H:mm'));              
 
                 setTotal(totalCases);
  
