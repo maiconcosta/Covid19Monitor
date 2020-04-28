@@ -17,4 +17,4 @@ A API utilizada foi a [covid19-brazil-api](https://github.com/devarthurribeiro/c
 
 ## Licença
 
-A licença utilizado no projeto é a MIT. Para mais detalhes leia o [arquivo](./LICENSE.md).
+A licença utilizado no projeto é a MIT. Para mais detalhes leia o [arquivo](./LICENSE).
